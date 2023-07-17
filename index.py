@@ -4,14 +4,6 @@ from tkinter import *
 
 class Product:
 
-
-        
-
-    #def operations(self, number):
-
-        #self.operation = number
-        #self.result.insert(0, self.operation)
-
     def __init__(self, window):
 
         # Windows Attributes
@@ -19,11 +11,6 @@ class Product:
         self.wind.title('Calculator')
         self.wind.geometry("455x460")
         self.wind.resizable(False, False)
-
-        # Creating Frame Container
-        #result = Frame(self.wind, height=120, width=460, relief='solid').grid(row=0, column=0, columnspan = 3)
-        #self.buttons = Frame(self.wind,height=150, width=150, relief='solid').grid(row=6, column=0)
-        
 
         # Buttons Space Bar
         self.barO = ttk.Button(self.wind).grid(row = 3, column = 0, sticky= W + E)
@@ -118,13 +105,6 @@ class Product:
         self.Eresult.grid(row=4, column=0)
         print(self.result)
 
-
-
-      
-
-        
-
-    
 
 
         
