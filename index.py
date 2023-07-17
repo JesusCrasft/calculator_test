@@ -22,34 +22,34 @@ class Product:
         # NUMBERS BUTTONS
 
         #Button nine
-        self.nine = ttk.Button(text='9', width=10).grid(row = 6, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        self.nine = ttk.Button(text='9', width=10, command = lambda: self.operatio(9)).grid(row = 6, column = 0, sticky=E + E, padx=[0,190], ipady=10)
         
         #Button eight
-        self.eight = ttk.Button(text='8', width=10).grid(row = 6, column = 0, sticky=N + N, padx=[0,190], ipady=10)
+        self.eight = ttk.Button(text='8', width=10, command = lambda: self.operatio(8)).grid(row = 6, column = 0, sticky=N + N, padx=[0,190], ipady=10)
         
         #Button seven
         self.seven = ttk.Button(text='7', width=10, command = lambda: self.operatio(7)).grid(row = 6, column = 0, sticky=W + W, padx=[0,220], ipady=10)
 
         #Button six
-        self.six = ttk.Button(text='6', width=10).grid(row = 7, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        self.six = ttk.Button(text='6', width=10, command = lambda: self.operatio(6)).grid(row = 7, column = 0, sticky=E + E, padx=[0,190], ipady=10)
 
         #Button five
-        self.five = ttk.Button(text='5', width=10).grid(row = 7, column = 0, sticky=N + N, padx=[0,190], ipady=10)
+        self.five = ttk.Button(text='5', width=10, command = lambda: self.operatio(5)).grid(row = 7, column = 0, sticky=N + N, padx=[0,190], ipady=10)
 
         #Button four
-        self.four = ttk.Button(text='4', width=10).grid(row = 7, column = 0, sticky=W + W, padx=[0,220], ipady=10)
+        self.four = ttk.Button(text='4', width=10, command = lambda: self.operatio(4)).grid(row = 7, column = 0, sticky=W + W, padx=[0,220], ipady=10)
         
         #Button three
-        self.three = ttk.Button(text='3', width=10).grid(row = 8, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        self.three = ttk.Button(text='3', width=10, command = lambda: self.operatio(3)).grid(row = 8, column = 0, sticky=E + E, padx=[0,190], ipady=10)
 
         #Button two
-        self.two = ttk.Button(text='2', width=10).grid(row = 8, column = 0, sticky=N + N,  padx=[0,190], ipady=10)
+        self.two = ttk.Button(text='2', width=10, command = lambda: self.operatio(2)).grid(row = 8, column = 0, sticky=N + N,  padx=[0,190], ipady=10)
         
         #Button one
-        self.one = ttk.Button(text='1', width=10).grid(row = 8, column = 0, sticky=W + W, padx=[0,220], ipady=10)
+        self.one = ttk.Button(text='1', width=10, command = lambda: self.operatio(1)).grid(row = 8, column = 0, sticky=W + W, padx=[0,220], ipady=10)
 
         #Button zero
-        self.zero = ttk.Button(text='0', width=10).grid(row = 9, column = 0, sticky=W + W, padx=[0,220], ipady=10)
+        self.zero = ttk.Button(text='0', width=10, command = lambda: self.operatio(0)).grid(row = 9, column = 0, sticky=W + W, padx=[0,220], ipady=10)
 
         # SYMBOLS NUMBERS
 
@@ -57,28 +57,28 @@ class Product:
         self.igual = ttk.Button(text='=', width=10).grid(row = 9, column = 0, sticky=E + E, padx=[10,10], ipady=10)
 
         #+
-        self.suma = ttk.Button(text='+', width=10).grid(row = 9, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        self.suma = ttk.Button(text='+', width=10, command = lambda: self.operatio('+')).grid(row = 9, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
         #-
-        self.resta = ttk.Button(text='-', width=10).grid(row = 8, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        self.resta = ttk.Button(text='-', width=10, command = lambda: self.operatio('-')).grid(row = 8, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
         #*
-        self.multi = ttk.Button(text='x', width=10).grid(row = 6, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        self.multi = ttk.Button(text='x', width=10, command = lambda: self.operatio('x')).grid(row = 6, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
         #/
-        self.slash = ttk.Button(text='/', width=10).grid(row = 7, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        self.slash = ttk.Button(text='/', width=10, command = lambda: self.operatio('/')).grid(row = 7, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
         #(
-        self.pntsr = ttk.Button(text='(', width=10).grid(row = 6, column = 0, sticky=E + E, padx=[0,10], ipady=10)
+        self.pntsr = ttk.Button(text='(', width=10, command = lambda: self.operatio('(')).grid(row = 6, column = 0, sticky=E + E, padx=[0,10], ipady=10)
         
         #)
-        self.pntsl = ttk.Button(text=')', width=10).grid(row = 7, column = 0, sticky=E + E, padx=[0,10], ipady=10)
+        self.pntsl = ttk.Button(text=')', width=10, command = lambda: self.operatio(')')).grid(row = 7, column = 0, sticky=E + E, padx=[0,10], ipady=10)
 
         #,
-        self.coma = ttk.Button(text=',', width=10).grid(row = 9, column = 0, sticky=N + N, padx=[0,190], ipady=10)
+        self.coma = ttk.Button(text=',', width=10, command = lambda: self.operatio(',')).grid(row = 9, column = 0, sticky=N + N, padx=[0,190], ipady=10)
 
         #%
-        self.porcentaje = ttk.Button(text='%', width=10).grid(row = 9, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        self.porcentaje = ttk.Button(text='%', width=10, command = lambda: self.operatio('%')).grid(row = 9, column = 0, sticky=E + E, padx=[0,190], ipady=10)
     
         self.operation = 0
         self.result = []
