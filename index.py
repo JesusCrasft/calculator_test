@@ -14,6 +14,10 @@ class Product:
 
         #Variables
         self.operation = []
+        self.ResP = 0
+        self.ResPT = 0
+        self.ResPI = 0
+        self.ResD = 0
 
         # Treeview
         self.tree = ttk.Treeview(height=5, columns=2)
@@ -67,7 +71,7 @@ class Product:
         # SYMBOLS NUMBERS
 
         #=
-        self.igual = ttk.Button(text='=', width=10).grid(row = 9, column = 0, sticky=E + E, padx=[10,10], ipady=10)
+        self.igual = ttk.Button(text='=', width=10, command = lambda: self.printRes()).grid(row = 9, column = 0, sticky=E + E, padx=[10,10], ipady=10)
 
         #DEL
         self.delBtn = ttk.Button(text='DEL', width=10, command = lambda: self.delEnt()).grid(row = 8, column = 0, sticky=E + E, padx=[10,10], ipady=10)
@@ -79,7 +83,7 @@ class Product:
         self.resta = ttk.Button(text='-', width=10, command = lambda: self.printOps('-')).grid(row = 8, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
         #*
-        self.multi = ttk.Button(text='x', width=10, command = lambda: self.printOps('x')).grid(row = 6, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        self.multi = ttk.Button(text='x', width=10, command = lambda: self.printOps('*')).grid(row = 6, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
         #/
         self.slash = ttk.Button(text='/', width=10, command = lambda: self.printOps('/')).grid(row = 7, column = 0, sticky=E + E, padx=[0,100], ipady=10)
@@ -109,8 +113,19 @@ class Product:
     def delEnt(self):
 
         self.EntryOps.configure(state='normal')
-        self.EntryOps.delete(0, END)
+        self.EntryOps.delete(self.EntryOps.index("end") - 1)
         self.operation = []
+        self.EntryOps.configure(state='readonly')
+
+    def printRes(self):
+
+        self.ResPI = map(str, self.operation)
+        self.ResPT = ''.join(self.ResPI)
+        self.ResP = eval(self.ResPT)
+        self.ResD = int(self.ResP)
+        self.EntryOps.configure(state='normal')
+        self.EntryOps.delete(0, END)
+        self.EntryOps.insert(0, self.ResD)
         self.EntryOps.configure(state='readonly')
         
 
