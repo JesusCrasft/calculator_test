@@ -22,8 +22,8 @@ class Product:
         self.tree.heading('#1', text = 'Result', anchor=CENTER)
 
         # Entrys
-        self.Eresult = Entry(self.wind, font=('P052 35'), state='readonly', textvariable = self.operation)
-        self.Eresult.grid(row=4, column=0)
+        self.EntryOps = Entry(self.wind, font=('P052 35'), textvariable = self.operation)
+        self.EntryOps.grid(row=4, column=0)
 
         # Buttons Space Bar
         self.barO = ttk.Button(self.wind).grid(row = 3, column = 0, sticky= W + E)
@@ -69,6 +69,9 @@ class Product:
         #=
         self.igual = ttk.Button(text='=', width=10).grid(row = 9, column = 0, sticky=E + E, padx=[10,10], ipady=10)
 
+        #DEL
+        self.derl = ttk.Button(text='DEL', width=10, command = lambda: self.derl).grid(row = 8, column = 0, sticky=E + E, padx=[10,10], ipady=10)
+
         #+
         self.suma = ttk.Button(text='+', width=10, command = lambda: self.printOps('+')).grid(row = 9, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
@@ -97,10 +100,14 @@ class Product:
 
     def printOps(self, number):
         
+        self.EntryOps.delete(0, END)
         self.operation.append(number)
-        self.result = self.operation
-        self.Eresult = Entry(self.wind, font=('P052 35'), state='readonly', textvariable = StringVar(value = self.operation))
-        self.Eresult.grid(row=4, column=0)
+        self.EntryOps.insert(0, self.operation)
+
+    def derl(self):
+        self.EntryOps.delete(0, END)
+
+    
 
 
 
