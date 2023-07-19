@@ -112,7 +112,7 @@ class Product:
 
     def delEnt(self):
 
-        #self.EntryOps.configure(state='normal')
+        self.EntryOps.configure(state='normal')
         #self.EntryOps.delete(self.EntryOps.index("end") - 1)
         self.EntryOps.delete(0, END)
         self.operation = []
@@ -131,12 +131,16 @@ class Product:
             self.EntryOps.delete(0, END)
             self.EntryOps.insert(0, self.ResD)
             #self.EntryOps.configure(state='readonly')
-        except Exception as ex:
+        except ZeroDivisionError:
             #self.EntryOps.configure(state='normal')
             self.EntryOps.delete(0, END)
-            self.EntryOps.insert(0, 'Error')
-            print(ex)
-           #self.EntryOps.configure(state='readonly')
+            self.EntryOps.insert(0, 'Error al intentar dividir entre cero')
+            self.EntryOps.configure(state='readonly')
+        except SyntaxError:
+            #self.EntryOps.configure(state='normal')
+            self.EntryOps.delete(0, END)
+            self.EntryOps.insert(0, 'Operacion Invalidad')
+            self.EntryOps.configure(state='readonly')
 
         # Filling the tree with the operation + result
 
