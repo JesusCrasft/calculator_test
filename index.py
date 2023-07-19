@@ -119,14 +119,27 @@ class Product:
 
     def printRes(self):
 
-        self.ResPI = map(str, self.operation)
-        self.ResPT = ''.join(self.ResPI)
-        self.ResP = eval(self.ResPT)
-        self.ResD = int(self.ResP)
-        self.EntryOps.configure(state='normal')
-        self.EntryOps.delete(0, END)
-        self.EntryOps.insert(0, self.ResD)
-        self.EntryOps.configure(state='readonly')
+        # Print the operation into the Entry
+ 
+        try: 
+            self.ResPI = map(str, self.operation)
+            self.ResPT = ''.join(self.ResPI)
+            self.ResP = eval(self.ResPT)
+            self.ResD = int(self.ResP)
+            self.EntryOps.configure(state='normal')
+            self.EntryOps.delete(0, END)
+            self.EntryOps.insert(0, self.ResD)
+            self.EntryOps.configure(state='readonly')
+        except Exception as ex:
+            self.EntryOps.configure(state='normal')
+            self.EntryOps.delete(0, END)
+            self.EntryOps.insert(0, 'Error')
+            print(ex)
+            self.EntryOps.configure(state='readonly')
+
+        # Filling the tree with the operation + result
+
+        
         
 
     
