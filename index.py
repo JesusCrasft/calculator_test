@@ -130,20 +130,27 @@ class Product:
             #self.EntryOps.configure(state='normal')
             self.EntryOps.delete(0, END)
             self.EntryOps.insert(0, self.ResD)
+            self.tree.insert('', 0, text = self.operation, values = self.ResD)
+            self.operation = []
             #self.EntryOps.configure(state='readonly')
         except ZeroDivisionError:
             #self.EntryOps.configure(state='normal')
             self.EntryOps.delete(0, END)
             self.EntryOps.insert(0, 'Error al intentar dividir entre cero')
+            self.tree.insert('', 0, text = self.operation, values = "Error")
+            self.operation = []
             self.EntryOps.configure(state='readonly')
         except SyntaxError:
             #self.EntryOps.configure(state='normal')
             self.EntryOps.delete(0, END)
-            self.EntryOps.insert(0, 'Operacion Invalidad')
+            self.EntryOps.insert(0, 'Operacion Invalida')
+            self.tree.insert('', 0, text = self.operation, values = "Error")
+            self.operation = []
             self.EntryOps.configure(state='readonly')
 
         # Filling the tree with the operation + result
 
+        
         
         
 
