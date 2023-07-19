@@ -9,30 +9,42 @@ class Product:
         # Windows Attributes
         self.wind = window
         self.wind.title('Calculator')
-        self.wind.geometry("860x860")
+        self.wind.geometry("860x620")
         #self.wind.geometry("455x460")
         self.wind.resizable(False, False)
 
-        #Variables
+        # VARIABLES
+        self.YesPr = True
         self.operation = []
+        self.TkStyle = ttk.Style()
         self.ResP = 0
         self.ResPT = 0
         self.ResPI = 0
         self.ResD = 0
+        
+        # TREEVIEW
+        self.tree = ttk.Treeview(height=10, columns=2)
+        self.tree.grid(row=0, column=0, sticky = E + E)
+        #self.TkStyle.configure('Treeview', rowheight=10)
+        #self.TkStyle.theme_use('clam')
 
-        # Treeview
-        self.tree = ttk.Treeview(height=5, columns=2)
-        self.tree.grid(row = 0, column = 0, sticky=W + E)
-        self.tree.heading('#0', text = 'Operation', anchor=CENTER)
-        self.tree.heading('#1', text = 'Result', anchor=CENTER)
+        #Operation Colum
+        self.tree.heading('#0', text = 'Operation', anchor = CENTER)
+        self.tree.column('#0', width=430)
+
+        #Result Colum
+        self.tree.heading('#1', text = 'Result', anchor = CENTER)
+        self.tree.column('#1', width=430)
 
         # Entry
-        self.EntryOps = Entry(self.wind, font=('P052 35'), textvariable = self.operation)
+        self.EntryOps = Entry(self.wind, font=('P052 35'), width=37 , textvariable = self.operation)
         self.EntryOps.grid(row=4, column=0)
 
-        # Buttons Space Bar
-        self.barO = ttk.Button(self.wind).grid(row = 3, column = 0, sticky= W + E)
-        self.barT = ttk.Button(self.wind).grid(row = 5, column = 0, sticky=W + E)
+        # BUTTONS SPACE BAR
+        #Up Bar
+        self.barO = ttk.Button(self.wind).grid(row=3, column=0, sticky= W + E)
+        #Down Bar
+        self.barT = ttk.Button(self.wind).grid(row=5, column=0, sticky=W + E)
         
         
         # OPERATIONS BUTTONS
@@ -69,7 +81,7 @@ class Product:
         #Button zero
         self.zero = ttk.Button(text='0', width=10, command = lambda: self.printOps(0)).grid(row = 9, column = 0, sticky=W + W, padx=[0,220], ipady=10)
 
-        # SYMBOLS NUMBERS
+        # SYMBOLS BUTTONS
 
         #=
         self.igual = ttk.Button(text='=', width=10, command = lambda: self.printRes()).grid(row = 9, column = 0, sticky=E + E, padx=[10,10], ipady=10)
@@ -86,8 +98,8 @@ class Product:
         #*
         self.multi = ttk.Button(text='x', width=10, command = lambda: self.printOps('*')).grid(row = 6, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
-        #/
-        self.slash = ttk.Button(text='÷', width=10, command = lambda: self.printOps('÷')).grid(row = 7, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        #÷
+        self.division = ttk.Button(text='÷', width=10, command = lambda: self.printOps('/')).grid(row = 7, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
         #(
         self.pntsr = ttk.Button(text='(', width=10, command = lambda: self.printOps('(')).grid(row = 6, column = 0, sticky=E + E, padx=[0,10], ipady=10)
@@ -103,55 +115,61 @@ class Product:
 
     # Functions
 
+    #Function to print the operation in the Entry
     def printOps(self, number):
+
+        if self.YesPr == True:
+            self.EntryOps.delete(0, END)
+            self.operation.append(number)
+            self.EntryOps.insert(0, self.operation)
         
-        #Function to print the operation in the Entry
 
-        #self.EntryOps.configure(state='normal')
-        self.EntryOps.delete(0, END)
-        self.operation.append(number)
-        self.EntryOps.insert(0, self.operation)
-        #self.EntryOps.configure(state='readonly')
-
+    #Function to delete all the caracters in the Entry
     def delEnt(self):
-
-        #Function to delete all the caracters in the Entry
-
         self.EntryOps.configure(state='normal')
         #self.EntryOps.delete(self.EntryOps.index("end") - 1)
         self.EntryOps.delete(0, END)
         self.operation = []
+        self.YesPr = True
 
+    # Print the result into the Entry and the TreeView
     def printRes(self):
 
-        # Print the result into the Entry and the TreeView
- 
-        try: 
+        if self.YesPr == True:
+            if self.operation == []:
+                self.EntryOps.delete(0, END)
+                self.EntryOps.insert(0, "Error, presione DEL")
+                self.tree.insert('', 0, text = "Error", values = ["Operacion en blanco"])
+                self.operation = []
+                self.YesPr = False
+                self.EntryOps.configure(state='readonly')
+            
+            else:
+                try: 
+                    self.ResPI = map(str, self.operation)
+                    self.ResPT = ''.join(self.ResPI)
+                    self.ResP = eval(self.ResPT)
+                    self.ResD = int(self.ResP)
+                    self.EntryOps.delete(0, END)
+                    self.EntryOps.insert(0, self.ResD)
+                    self.tree.insert('', 0, text = self.operation, values = self.ResD)
+                    self.operation = []
 
-            self.ResPI = map(str, self.operation)
-            self.ResPT = ''.join(self.ResPI)
-            self.ResP = eval(self.ResPT)
-            self.ResD = int(self.ResP)
-            self.EntryOps.delete(0, END)
-            self.EntryOps.insert(0, self.ResD)
-            self.tree.insert('', 0, text = self.operation, values = self.ResD)
-            self.operation = []
+                except ZeroDivisionError:
+                    self.EntryOps.delete(0, END)
+                    self.EntryOps.insert(0, 'Error, presione DEL')
+                    self.tree.insert('', 0, text = self.operation, values = ["Error al intentar dividir entre cero"])
+                    self.operation = []
+                    self.YesPr = False
+                    self.EntryOps.configure(state='readonly')
 
-        except ZeroDivisionError:
-
-            self.EntryOps.delete(0, END)
-            self.EntryOps.insert(0, 'Error al intentar dividir entre cero')
-            self.tree.insert('', 0, text = self.operation, values = "Error")
-            self.operation = []
-            self.EntryOps.configure(state='readonly')
-
-        except SyntaxError:
-
-            self.EntryOps.delete(0, END)
-            self.EntryOps.insert(0, 'Operacion Invalida')
-            self.tree.insert('', 0, text = self.operation, values = "Error")
-            self.operation = []
-            self.EntryOps.configure(state='readonly')
+                except SyntaxError:
+                    self.EntryOps.delete(0, END)
+                    self.EntryOps.insert(0, 'Error, presione DEL')
+                    self.tree.insert('', 0, text = self.operation, values = ["Operacion invalida"])
+                    self.operation = []
+                    self.YesPr = False
+                    self.EntryOps.configure(state='readonly')
 
         
         
