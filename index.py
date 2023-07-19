@@ -9,7 +9,8 @@ class Product:
         # Windows Attributes
         self.wind = window
         self.wind.title('Calculator')
-        self.wind.geometry("455x460")
+        self.wind.geometry("860x860")
+        #self.wind.geometry("455x460")
         self.wind.resizable(False, False)
 
         #Variables
@@ -86,7 +87,7 @@ class Product:
         self.multi = ttk.Button(text='x', width=10, command = lambda: self.printOps('*')).grid(row = 6, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
         #/
-        self.slash = ttk.Button(text='/', width=10, command = lambda: self.printOps('/')).grid(row = 7, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        self.slash = ttk.Button(text='÷', width=10, command = lambda: self.printOps('÷')).grid(row = 7, column = 0, sticky=E + E, padx=[0,100], ipady=10)
 
         #(
         self.pntsr = ttk.Button(text='(', width=10, command = lambda: self.printOps('(')).grid(row = 6, column = 0, sticky=E + E, padx=[0,10], ipady=10)
@@ -104,6 +105,8 @@ class Product:
 
     def printOps(self, number):
         
+        #Function to print the operation in the Entry
+
         #self.EntryOps.configure(state='normal')
         self.EntryOps.delete(0, END)
         self.operation.append(number)
@@ -112,43 +115,43 @@ class Product:
 
     def delEnt(self):
 
+        #Function to delete all the caracters in the Entry
+
         self.EntryOps.configure(state='normal')
         #self.EntryOps.delete(self.EntryOps.index("end") - 1)
         self.EntryOps.delete(0, END)
         self.operation = []
-        #self.EntryOps.configure(state='readonly')
 
     def printRes(self):
 
-        # Print the operation into the Entry
+        # Print the result into the Entry and the TreeView
  
         try: 
+
             self.ResPI = map(str, self.operation)
             self.ResPT = ''.join(self.ResPI)
             self.ResP = eval(self.ResPT)
             self.ResD = int(self.ResP)
-            #self.EntryOps.configure(state='normal')
             self.EntryOps.delete(0, END)
             self.EntryOps.insert(0, self.ResD)
             self.tree.insert('', 0, text = self.operation, values = self.ResD)
             self.operation = []
-            #self.EntryOps.configure(state='readonly')
+
         except ZeroDivisionError:
-            #self.EntryOps.configure(state='normal')
+
             self.EntryOps.delete(0, END)
             self.EntryOps.insert(0, 'Error al intentar dividir entre cero')
             self.tree.insert('', 0, text = self.operation, values = "Error")
             self.operation = []
             self.EntryOps.configure(state='readonly')
+
         except SyntaxError:
-            #self.EntryOps.configure(state='normal')
+
             self.EntryOps.delete(0, END)
             self.EntryOps.insert(0, 'Operacion Invalida')
             self.tree.insert('', 0, text = self.operation, values = "Error")
             self.operation = []
             self.EntryOps.configure(state='readonly')
-
-        # Filling the tree with the operation + result
 
         
         
