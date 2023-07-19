@@ -26,7 +26,7 @@ class Product:
         self.tree.heading('#1', text = 'Result', anchor=CENTER)
 
         # Entry
-        self.EntryOps = Entry(self.wind, font=('P052 35'), state='readonly', textvariable = self.operation)
+        self.EntryOps = Entry(self.wind, font=('P052 35'), textvariable = self.operation)
         self.EntryOps.grid(row=4, column=0)
 
         # Buttons Space Bar
@@ -104,18 +104,19 @@ class Product:
 
     def printOps(self, number):
         
-        self.EntryOps.configure(state='normal')
+        #self.EntryOps.configure(state='normal')
         self.EntryOps.delete(0, END)
         self.operation.append(number)
         self.EntryOps.insert(0, self.operation)
-        self.EntryOps.configure(state='readonly')
+        #self.EntryOps.configure(state='readonly')
 
     def delEnt(self):
 
-        self.EntryOps.configure(state='normal')
-        self.EntryOps.delete(self.EntryOps.index("end") - 1)
+        #self.EntryOps.configure(state='normal')
+        #self.EntryOps.delete(self.EntryOps.index("end") - 1)
+        self.EntryOps.delete(0, END)
         self.operation = []
-        self.EntryOps.configure(state='readonly')
+        #self.EntryOps.configure(state='readonly')
 
     def printRes(self):
 
@@ -126,16 +127,16 @@ class Product:
             self.ResPT = ''.join(self.ResPI)
             self.ResP = eval(self.ResPT)
             self.ResD = int(self.ResP)
-            self.EntryOps.configure(state='normal')
+            #self.EntryOps.configure(state='normal')
             self.EntryOps.delete(0, END)
             self.EntryOps.insert(0, self.ResD)
-            self.EntryOps.configure(state='readonly')
+            #self.EntryOps.configure(state='readonly')
         except Exception as ex:
-            self.EntryOps.configure(state='normal')
+            #self.EntryOps.configure(state='normal')
             self.EntryOps.delete(0, END)
             self.EntryOps.insert(0, 'Error')
             print(ex)
-            self.EntryOps.configure(state='readonly')
+           #self.EntryOps.configure(state='readonly')
 
         # Filling the tree with the operation + result
 
