@@ -1,6 +1,5 @@
 from tkinter import ttk
-from tkinter import *
-
+from tkinter import * 
 
 class Product:
 
@@ -14,7 +13,7 @@ class Product:
         self.wind.resizable(False, False)
 
         # VARIABLES
-        self.test = PhotoImage(file='operations.png')
+        #self.new_style = [('Treeheading.cell', {'sticky': 'nswe'}), ('Treeheading.border', {'sticky': 'nswe', 'children': [('Treeheading.padding', {'sticky': 's', 'children': [('Treeheading.image', {'side': 'bottom', 'sticky': 'ne'}), ('Treeheading.text', {'sticky': 'we'})]})]})]
         self.YesPr = False
         self.operation = []
         self.TkStyle = ttk.Style()
@@ -26,16 +25,19 @@ class Product:
         # TREEVIEW
         self.tree = ttk.Treeview(height=10, columns=2)
         self.tree.grid(row=0, column=0, sticky = E + E)
-        self.TkStyle.configure('Treeview', font=('Helvetica 30'))
-        self.TkStyle.theme_use('clam')
+        self.TkStyle.configure('Treeview', font=('P052'))
+        self.TkStyle.configure('Treeview.Heading', font=('P052 25'))
+        print(self.TkStyle.layout("Treeview.Heading"))
+        #self.TkStyle.layout("Treeview.Heading", font=('Arial 25'))
 
         #Operation Colum
-        self.tree.heading('#0', image=self.test , anchor = CENTER)
-        self.tree.column('#0', width=430)
+        self.tree.heading('#0', text = 'OPERATIONS', anchor = CENTER)
+        self.tree.column('#0', width=430, stretch=False)
 
         #Result Colum
         self.tree.heading('#1', text = 'RESULT', anchor = CENTER)
-        self.tree.column('#1', width=430)
+        self.tree.column('#1', width=430, stretch=False)
+
 
         # Entry
         self.EntryOps = Entry(self.wind, state='readonly' , font=('P052 35'), width=37 , textvariable = self.operation)
