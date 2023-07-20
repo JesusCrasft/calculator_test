@@ -14,7 +14,7 @@ class Product:
         self.wind.resizable(False, False)
 
         # VARIABLES
-        self.YesPr = True
+        self.YesPr = False
         self.operation = []
         self.TkStyle = ttk.Style()
         self.ResP = 0
@@ -37,7 +37,7 @@ class Product:
         self.tree.column('#1', width=430)
 
         # Entry
-        self.EntryOps = Entry(self.wind, font=('P052 35'), width=37 , textvariable = self.operation)
+        self.EntryOps = Entry(self.wind, state='readonly' , font=('P052 35'), width=37 , textvariable = self.operation)
         self.EntryOps.grid(row=4, column=0)
 
         # BUTTONS SPACE BAR
@@ -117,59 +117,61 @@ class Product:
 
     #Function to print the operation in the Entry
     def printOps(self, number):
+        self.YesPr = True
+        self.EntryOps.configure(state='normal')
+        self.EntryOps.delete(0, END)
+        self.operation.append(number)
+        self.EntryOps.insert(0, self.operation)
+        self.EntryOps.configure(state='readonly')
 
-        if self.YesPr == True:
-            self.EntryOps.delete(0, END)
-            self.operation.append(number)
-            self.EntryOps.insert(0, self.operation)
-        
 
     #Function to delete all the caracters in the Entry
     def delEnt(self):
         self.EntryOps.configure(state='normal')
         #self.EntryOps.delete(self.EntryOps.index("end") - 1)
         self.EntryOps.delete(0, END)
+        self.EntryOps.configure(state='readonly')
         self.operation = []
         self.YesPr = True
+        self.ifOps = False
+
 
     # Print the result into the Entry and the TreeView
     def printRes(self):
-
         if self.YesPr == True:
-            if self.operation == []:
+            try: 
+                self.ResPI = map(str, self.operation)
+                self.ResPT = ''.join(self.ResPI)
+                self.ResP = eval(self.ResPT)
+                self.EntryOps.configure(state='normal')
                 self.EntryOps.delete(0, END)
-                self.EntryOps.insert(0, "Error, presione DEL")
-                self.tree.insert('', 0, text = "Error", values = ["Operacion en blanco"])
+                self.EntryOps.insert(0, self.ResP)
+                self.tree.insert('', 0, text = self.operation, values = self.ResP)
+                self.EntryOps.configure(state='readonly')
+                self.operation = []
+                self.YesPr = False
+
+            except ZeroDivisionError:
+                self.EntryOps.configure(state='normal')
+                self.EntryOps.delete(0, END)
+                self.EntryOps.insert(0, 'Presione DEL para continuar')
+                self.tree.insert('', 0, text = self.operation, values = ["Error al intentar dividir entre cero"])
                 self.operation = []
                 self.YesPr = False
                 self.EntryOps.configure(state='readonly')
+
+            except SyntaxError:
+                self.EntryOps.configure(state='normal')
+                self.EntryOps.delete(0, END)
+                self.EntryOps.insert(0, 'Presione DEL para continuar')
+                self.tree.insert('', 0, text = self.operation, values = ["Operacion invalida"])
+                self.operation = []
+                self.YesPr = False
+                self.EntryOps.configure(state='readonly')
+
+
             
-            else:
-                try: 
-                    self.ResPI = map(str, self.operation)
-                    self.ResPT = ''.join(self.ResPI)
-                    self.ResP = eval(self.ResPT)
-                    self.ResD = int(self.ResP)
-                    self.EntryOps.delete(0, END)
-                    self.EntryOps.insert(0, self.ResD)
-                    self.tree.insert('', 0, text = self.operation, values = self.ResD)
-                    self.operation = []
-
-                except ZeroDivisionError:
-                    self.EntryOps.delete(0, END)
-                    self.EntryOps.insert(0, 'Error, presione DEL')
-                    self.tree.insert('', 0, text = self.operation, values = ["Error al intentar dividir entre cero"])
-                    self.operation = []
-                    self.YesPr = False
-                    self.EntryOps.configure(state='readonly')
-
-                except SyntaxError:
-                    self.EntryOps.delete(0, END)
-                    self.EntryOps.insert(0, 'Error, presione DEL')
-                    self.tree.insert('', 0, text = self.operation, values = ["Operacion invalida"])
-                    self.operation = []
-                    self.YesPr = False
-                    self.EntryOps.configure(state='readonly')
+                
 
         
         
