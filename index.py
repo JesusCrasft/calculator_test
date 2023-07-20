@@ -14,6 +14,7 @@ class Product:
         self.wind.resizable(False, False)
 
         # VARIABLES
+        self.test = PhotoImage(file='operations.png')
         self.YesPr = False
         self.operation = []
         self.TkStyle = ttk.Style()
@@ -25,15 +26,15 @@ class Product:
         # TREEVIEW
         self.tree = ttk.Treeview(height=10, columns=2)
         self.tree.grid(row=0, column=0, sticky = E + E)
-        #self.TkStyle.configure('Treeview', rowheight=10)
-        #self.TkStyle.theme_use('clam')
+        self.TkStyle.configure('Treeview', font=('Helvetica 30'))
+        self.TkStyle.theme_use('clam')
 
         #Operation Colum
-        self.tree.heading('#0', text = 'Operation', anchor = CENTER)
+        self.tree.heading('#0', image=self.test , anchor = CENTER)
         self.tree.column('#0', width=430)
 
         #Result Colum
-        self.tree.heading('#1', text = 'Result', anchor = CENTER)
+        self.tree.heading('#1', text = 'RESULT', anchor = CENTER)
         self.tree.column('#1', width=430)
 
         # Entry
