@@ -63,90 +63,90 @@ class Product:
         # NUMBERS BUTTONS
 
         #Button nine
-        self.nine = ttk.Button(text='9', width=10, command = lambda: self.printOps(9))
-        self.nine.grid(row = 6, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        self.nine = ttk.Button(text='9', width=20, command = lambda: self.printOps(9))
+        self.nine.grid(row = 6, column = 0, sticky=E + E, padx=[0,350], ipady=10)
         
         #Button eight
-        self.eight = ttk.Button(text='8', width=10, command = lambda: self.printOps(8))
-        self.eight.grid(row = 6, column = 0, sticky=N + N, padx=[0,190], ipady=10)
+        self.eight = ttk.Button(text='8', width=20, command = lambda: self.printOps(8))
+        self.eight.grid(row = 6, column = 0, sticky=N + N, padx=[0,350], ipady=10)
         
         #Button seven
-        self.seven = ttk.Button(text='7', width=10, command = lambda: self.printOps(7))
-        self.seven.grid(row = 6, column = 0, sticky=W + W, padx=[0,220], ipady=10)
+        self.seven = ttk.Button(text='7', width=20, command = lambda: self.printOps(7))
+        self.seven.grid(row = 6, column = 0, sticky=W + W, padx=[0,0], ipady=10)
 
         #Button six
-        self.six = ttk.Button(text='6', width=10, command = lambda: self.printOps(6))
-        self.six.grid(row = 7, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        self.six = ttk.Button(text='6', width=20, command = lambda: self.printOps(6))
+        self.six.grid(row = 7, column = 0, sticky=E + E, padx=[0,350], ipady=10)
 
         #Button five
-        self.five = ttk.Button(text='5', width=10, command = lambda: self.printOps(5))
-        self.five.grid(row = 7, column = 0, sticky=N + N, padx=[0,190], ipady=10)
+        self.five = ttk.Button(text='5', width=20, command = lambda: self.printOps(5))
+        self.five.grid(row = 7, column = 0, sticky=N + N, padx=[0,350], ipady=10)
 
         #Button four
-        self.four = ttk.Button(text='4', width=10, command = lambda: self.printOps(4))
-        self.four.grid(row = 7, column = 0, sticky=W + W, padx=[0,220], ipady=10)
+        self.four = ttk.Button(text='4', width=20, command = lambda: self.printOps(4))
+        self.four.grid(row = 7, column = 0, sticky=W + W, padx=[0,0], ipady=10)
         
         #Button three
-        self.three = ttk.Button(text='3', width=10, command = lambda: self.printOps(3))
-        self.three.grid(row = 8, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        self.three = ttk.Button(text='3', width=20, command = lambda: self.printOps(3))
+        self.three.grid(row = 8, column = 0, sticky=N + N, padx=[0,7], ipady=10)
 
         #Button two
-        self.two = ttk.Button(text='2', width=10, command = lambda: self.printOps(2))
-        self.two.grid(row = 8, column = 0, sticky=N + N,  padx=[0,190], ipady=10)
+        self.two = ttk.Button(text='2', width=20, command = lambda: self.printOps(2))
+        self.two.grid(row = 8, column = 0, sticky=N + N,  padx=[0,350], ipady=10)
         
         #Button one
-        self.one = ttk.Button(text='1', width=10, command = lambda: self.printOps(1))
-        self.one.grid(row = 8, column = 0, sticky=W + W, padx=[0,220], ipady=10)
+        self.one = ttk.Button(text='1', width=20, command = lambda: self.printOps(1))
+        self.one.grid(row = 8, column = 0, sticky=N + N, padx=[0,690], ipady=10)
 
         #Button zero
-        self.zero = ttk.Button(text='0', width=10, command = lambda: self.printOps(0))
-        self.zero.grid(row = 9, column = 0, sticky=W + W, padx=[0,220], ipady=10)
+        self.zero = ttk.Button(text='0', width=20, command = lambda: self.printOps(0))
+        self.zero.grid(row = 8, column = 0, sticky=S + S, padx=[0,690], ipady=10)
 
         # SYMBOLS BUTTONS
 
-        #=
-        self.equal = ttk.Button(text='=', width=10, command = lambda: self.printRes())
-        self.equal.grid(row = 9, column = 0, sticky=E + E, padx=[10,10], ipady=10)
+        #EQUAL
+        self.equal = ttk.Button(text='=', width=21, command = lambda: self.printRes())
+        self.equal.grid(row = 8, column = 0, sticky=E + E, padx=[0,0], ipady=35)
 
         #DEL ALL
         self.delAll = ttk.Button(text='DEL ALL', width=55, command = lambda: self.delAEnt())
-        self.delAll.grid(row = 10, column = 0, sticky=W + W, padx=[10,10], ipady=10)
+        self.delAll.grid(row = 9, column = 0, sticky=W + W, padx=[0,0], ipady=10)
 
         #DEL
         self.delBtn = ttk.Button(text='DEL', width=55, command = lambda: self.delEnt())
-        self.delBtn.grid(row = 10, column = 0, sticky=E + E, padx=[10,10], ipady=10)
+        self.delBtn.grid(row = 9, column = 0, sticky=E + E, padx=[0,0], ipady=10)
 
-        #+
-        self.plus = ttk.Button(text='+', width=10, command = lambda: self.printOps('+'))
-        self.plus.grid(row = 9, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        #PLUS
+        self.plus = ttk.Button(text='+', width=20, command = lambda: self.printOps('+'))
+        self.plus.grid(row = 8, column = 0, sticky=S + S, padx=[338,0], ipady=10)
 
-        #-
-        self.minus = ttk.Button(text='-', width=10, command = lambda: self.printOps('-'))
-        self.minus.grid(row = 8, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        #MINUS
+        self.minus = ttk.Button(text='-', width=20, command = lambda: self.printOps('-'))
+        self.minus.grid(row = 8, column = 0, sticky=N + N, padx=[338,0], ipady=10)
 
-        #*
-        self.multi = ttk.Button(text='x', width=10, command = lambda: self.printOps('*'))
-        self.multi.grid(row = 6, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        #MULTI
+        self.multi = ttk.Button(text='x', width=20, command = lambda: self.printOps('*'))
+        self.multi.grid(row = 6, column = 0, sticky=E + E, padx=[0,177], ipady=10)
 
-        #÷
-        self.division = ttk.Button(text='÷', width=10, command = lambda: self.printOps('/'))
-        self.division.grid(row = 7, column = 0, sticky=E + E, padx=[0,100], ipady=10)
+        #DIVISION
+        self.division = ttk.Button(text='÷', width=20, command = lambda: self.printOps('/'))
+        self.division.grid(row = 7, column = 0, sticky=E + E, padx=[0,177], ipady=10)
 
-        #(
-        self.pntsr = ttk.Button(text='(', width=10, command = lambda: self.printOps('('))
-        self.pntsr.grid(row = 6, column = 0, sticky=E + E, padx=[0,10], ipady=10)
+        #PNTSR
+        self.pntsr = ttk.Button(text='(', width=20, command = lambda: self.printOps('('))
+        self.pntsr.grid(row = 6, column = 0, sticky=E + E, padx=[0,5], ipady=10)
         
-        #)
-        self.pntsl = ttk.Button(text=')', width=10, command = lambda: self.printOps(')'))
-        self.pntsl.grid(row = 7, column = 0, sticky=E + E, padx=[0,10], ipady=10)
+        #PNTSL
+        self.pntsl = ttk.Button(text=')', width=20, command = lambda: self.printOps(')'))
+        self.pntsl.grid(row = 7, column = 0, sticky=E + E, padx=[0,5], ipady=10)
 
-        #,
-        self.comma = ttk.Button(text=',', width=10, command = lambda: self.printOps(','))
-        self.comma.grid(row = 9, column = 0, sticky=N + N, padx=[0,190], ipady=10)
+        #COMMA
+        self.comma = ttk.Button(text=',', width=20, command = lambda: self.printOps(','))
+        self.comma.grid(row = 8, column = 0, sticky=S + S,  padx=[0,350], ipady=10)
 
-        #%
-        self.percent = ttk.Button(text='%', width=10, command = lambda: self.printOps('%'))
-        self.percent.grid(row = 9, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        #PERCENT
+        self.percent = Button(text='%', width=20, command = lambda: self.printOps('%'))
+        self.percent.grid(row = 8, column = 0, sticky=S + S, padx=[0,7], ipady=10)
 
     # Functions
 
