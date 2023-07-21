@@ -1,5 +1,6 @@
 from tkinter import ttk
 from tkinter import * 
+import tkinter.font as font
 
 class Product:
 
@@ -13,8 +14,8 @@ class Product:
         self.wind.resizable(False, False)
 
         # VARIABLES
-        #self.new_style = [('Treeheading.cell', {'sticky': 'nswe'}), ('Treeheading.border', {'sticky': 'nswe', 'children': [('Treeheading.padding', {'sticky': 's', 'children': [('Treeheading.image', {'side': 'bottom', 'sticky': 'ne'}), ('Treeheading.text', {'sticky': 'we'})]})]})]
         self.YesPr = False
+        self.myFont = font.Font(size=30)
         self.operation = []
         self.TkStyle = ttk.Style()
         self.ResP = 0
@@ -25,10 +26,9 @@ class Product:
         # TREEVIEW
         self.tree = ttk.Treeview(height=10, columns=2)
         self.tree.grid(row=0, column=0, sticky = E + E)
-        self.TkStyle.configure('Treeview', font=('P052'))
-        self.TkStyle.configure('Treeview.Heading', font=('P052 25'))
+        self.TkStyle.configure('Treeview', font=('courier 20'))
+        self.TkStyle.configure('Treeview.Heading', font=('P052 15'))
         print(self.TkStyle.layout("Treeview.Heading"))
-        #self.TkStyle.layout("Treeview.Heading", font=('Arial 25'))
 
         #Operation Colum
         self.tree.heading('#0', text = 'OPERATIONS', anchor = CENTER)
@@ -38,7 +38,6 @@ class Product:
         self.tree.heading('#1', text = 'RESULT', anchor = CENTER)
         self.tree.column('#1', width=430, stretch=False)
 
-
         # Entry
         self.EntryOps = Entry(self.wind, state='readonly' , font=('P052 35'), width=37 , textvariable = self.operation)
         self.EntryOps.grid(row=4, column=0)
@@ -47,7 +46,10 @@ class Product:
         #Up Bar
         self.barO = ttk.Button(self.wind).grid(row=3, column=0, sticky= W + E)
         #Down Bar
-        self.barT = ttk.Button(self.wind).grid(row=5, column=0, sticky=W + E)
+        self.barT = Button(self.wind)
+        #self.barT['font'] = self.myFont
+        self.barT.grid(row=5, column=0, sticky=W + E)
+        
         
         
         # OPERATIONS BUTTONS
@@ -55,13 +57,13 @@ class Product:
         # NUMBERS BUTTONS
 
         #Button nine
-        self.nine = ttk.Button(text='9', width=10, command = lambda: self.printOps(9)).grid(row = 6, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        self.nine = Button(text='9', width=10, command = lambda: self.printOps(9)).grid(row = 6, column = 0, sticky=E + E, padx=[0,190], ipady=10)
         
         #Button eight
-        self.eight = ttk.Button(text='8', width=10, command = lambda: self.printOps(8)).grid(row = 6, column = 0, sticky=N + N, padx=[0,190], ipady=10)
+        self.eight = Button(text='8', width=10, command = lambda: self.printOps(8)).grid(row = 6, column = 0, sticky=N + N, padx=[0,190], ipady=10)
         
         #Button seven
-        self.seven = ttk.Button(text='7', width=10, command = lambda: self.printOps(7)).grid(row = 6, column = 0, sticky=W + W, padx=[0,220], ipady=10)
+        self.seven = Button(text='7', width=10, command = lambda: self.printOps(7)).grid(row = 6, column = 0, sticky=W + W, padx=[0,220], ipady=10)
 
         #Button six
         self.six = ttk.Button(text='6', width=10, command = lambda: self.printOps(6)).grid(row = 7, column = 0, sticky=E + E, padx=[0,190], ipady=10)
@@ -87,7 +89,7 @@ class Product:
         # SYMBOLS BUTTONS
 
         #=
-        self.igual = ttk.Button(text='=', width=10, command = lambda: self.printRes()).grid(row = 9, column = 0, sticky=E + E, padx=[10,10], ipady=10)
+        self.igual = Button(text='=', width=10, height=3, command = lambda: self.printRes()).grid(row = 9, column = 0, sticky=E + E, padx=[10,10])
 
         #DEL
         self.delBtn = ttk.Button(text='DEL', width=10, command = lambda: self.delEnt()).grid(row = 8, column = 0, sticky=E + E, padx=[10,10], ipady=10)
@@ -120,12 +122,17 @@ class Product:
 
     #Function to print the operation in the Entry
     def printOps(self, number):
+        self.operation.append(number)
+        self.ResPI = map(str, self.operation)
+        self.ResPT = ''.join(self.ResPI)
+        self.operation = self.ResPT
         self.YesPr = True
         self.EntryOps.configure(state='normal')
         self.EntryOps.delete(0, END)
-        self.operation.append(number)
         self.EntryOps.insert(0, self.operation)
         self.EntryOps.configure(state='readonly')
+        self.operation = []
+        self.operation.append(self.ResPT)
 
 
     #Function to delete all the caracters in the Entry
@@ -145,6 +152,7 @@ class Product:
             try: 
                 self.ResPI = map(str, self.operation)
                 self.ResPT = ''.join(self.ResPI)
+                self.operation = self.ResPT
                 self.ResP = eval(self.ResPT)
                 self.EntryOps.configure(state='normal')
                 self.EntryOps.delete(0, END)
@@ -158,7 +166,8 @@ class Product:
                 self.EntryOps.configure(state='normal')
                 self.EntryOps.delete(0, END)
                 self.EntryOps.insert(0, 'Presione DEL para continuar')
-                self.tree.insert('', 0, text = self.operation, values = ["Error al intentar dividir entre cero"])
+                self.operation = self.ResPT
+                self.tree.insert('', 0, text = self.operation, values = ["Error: Division por cero"])
                 self.operation = []
                 self.YesPr = False
                 self.EntryOps.configure(state='readonly')
@@ -167,7 +176,8 @@ class Product:
                 self.EntryOps.configure(state='normal')
                 self.EntryOps.delete(0, END)
                 self.EntryOps.insert(0, 'Presione DEL para continuar')
-                self.tree.insert('', 0, text = self.operation, values = ["Operacion invalida"])
+                self.operation = self.ResPT
+                self.tree.insert('', 0, text = self.operation, values = ["Error: Operacion invalida"])
                 self.operation = []
                 self.YesPr = False
                 self.EntryOps.configure(state='readonly')
