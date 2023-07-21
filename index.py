@@ -15,16 +15,28 @@ class Product:
 
         # VARIABLES
         self.YesPr = False
+        self.NoPr = True
         self.myFont = font.Font(size=30)
         self.operation = []
+        self.old_operation = []
         self.TkStyle = ttk.Style()
         self.ResP = 0
         self.ResPT = 0
         self.ResPI = 0
         self.ResD = 0
         
+        # SCROLLBARS
+
+        #Treeview Scrollbar
+        self.barO = Scrollbar(self.wind, orient='horizontal', width=30)
+        self.barO.grid(row=3, column=0, sticky = W + E)
+
+        #Entry Scrollbar
+        self.barT = Scrollbar(self.wind, orient='horizontal', width=30)
+        self.barT.grid(row=5, column=0, sticky = W + E)
+
         # TREEVIEW
-        self.tree = ttk.Treeview(height=10, columns=2)
+        self.tree = ttk.Treeview(height=10, columns=2, yscrollcommand=self.barO.set)
         self.tree.grid(row=0, column=0, sticky = E + E)
         self.TkStyle.configure('Treeview', font=('courier 20'))
         self.TkStyle.configure('Treeview.Heading', font=('P052 15'))
@@ -39,38 +51,32 @@ class Product:
         self.tree.column('#1', width=430, stretch=False)
 
         # Entry
-        self.EntryOps = Entry(self.wind, state='readonly' , font=('P052 35'), width=37 , textvariable = self.operation)
+        self.EntryOps = Entry(self.wind, state='readonly', xscrollcommand=self.barT.set, font=('P052 35'), width=37 , textvariable = self.operation)
         self.EntryOps.grid(row=4, column=0)
 
-        # BUTTONS SPACE BAR
-        #Up Bar
-        self.barO = ttk.Button(self.wind).grid(row=3, column=0, sticky= W + E)
-        #Down Bar
-        self.barT = Button(self.wind)
-        #self.barT['font'] = self.myFont
-        self.barT.grid(row=5, column=0, sticky=W + E)
-        
-        
+        # Scrollbars Configuration
+        self.barT.configure(command=self.EntryOps.xview) 
+        self.barO.configure(command=self.tree.yview)
         
         # OPERATIONS BUTTONS
 
         # NUMBERS BUTTONS
 
         #Button nine
-        self.nine = Button(text='9', width=10, command = lambda: self.printOps(9))
+        self.nine = ttk.Button(text='9', width=10, command = lambda: self.printOps(9))
         self.nine.grid(row = 6, column = 0, sticky=E + E, padx=[0,190], ipady=10)
         
         #Button eight
-        self.eight = Button(text='8', width=10, command = lambda: self.printOps(8))
+        self.eight = ttk.Button(text='8', width=10, command = lambda: self.printOps(8))
         self.eight.grid(row = 6, column = 0, sticky=N + N, padx=[0,190], ipady=10)
         
         #Button seven
-        self.seven = Button(text='7', width=10, command = lambda: self.printOps(7))
+        self.seven = ttk.Button(text='7', width=10, command = lambda: self.printOps(7))
         self.seven.grid(row = 6, column = 0, sticky=W + W, padx=[0,220], ipady=10)
 
         #Button six
         self.six = ttk.Button(text='6', width=10, command = lambda: self.printOps(6))
-        self.eight.grid(row = 7, column = 0, sticky=E + E, padx=[0,190], ipady=10)
+        self.six.grid(row = 7, column = 0, sticky=E + E, padx=[0,190], ipady=10)
 
         #Button five
         self.five = ttk.Button(text='5', width=10, command = lambda: self.printOps(5))
@@ -99,12 +105,16 @@ class Product:
         # SYMBOLS BUTTONS
 
         #=
-        self.equal = Button(text='=', width=10, height=3, command = lambda: self.printRes())
-        self.equal.grid(row = 9, column = 0, sticky=E + E, padx=[10,10])
+        self.equal = ttk.Button(text='=', width=10, command = lambda: self.printRes())
+        self.equal.grid(row = 9, column = 0, sticky=E + E, padx=[10,10], ipady=10)
+
+        #DEL ALL
+        self.delAll = ttk.Button(text='DEL ALL', width=55, command = lambda: self.delAEnt())
+        self.delAll.grid(row = 10, column = 0, sticky=W + W, padx=[10,10], ipady=10)
 
         #DEL
-        self.delBtn = ttk.Button(text='DEL', width=10, command = lambda: self.delEnt())
-        self.delBtn.grid(row = 8, column = 0, sticky=E + E, padx=[10,10], ipady=10)
+        self.delBtn = ttk.Button(text='DEL', width=55, command = lambda: self.delEnt())
+        self.delBtn.grid(row = 10, column = 0, sticky=E + E, padx=[10,10], ipady=10)
 
         #+
         self.plus = ttk.Button(text='+', width=10, command = lambda: self.printOps('+'))
@@ -142,28 +152,41 @@ class Product:
 
     #Function to print the operation in the Entry
     def printOps(self, number):
-        self.operation.append(number)
-        self.ResPI = map(str, self.operation)
-        self.ResPT = ''.join(self.ResPI)
-        self.operation = self.ResPT
-        self.YesPr = True
-        self.EntryOps.configure(state='normal')
-        self.EntryOps.delete(0, END)
-        self.EntryOps.insert(0, self.operation)
-        self.EntryOps.configure(state='readonly')
-        self.operation = []
-        self.operation.append(self.ResPT)
+            if self.NoPr == True:
+                self.operation.append(number)
+                self.old_operation = self.operation
+                self.ResPI = map(str, self.operation)
+                self.ResPT = ''.join(self.ResPI)
+                self.operation = self.ResPT
+                self.YesPr = True
+                self.EntryOps.configure(state='normal')
+                self.EntryOps.delete(0, END)
+                self.EntryOps.insert(0, self.operation)
+                self.EntryOps.configure(state='readonly')
+                self.operation = self.old_operation
 
 
-    #Function to delete all the caracters in the Entry
+    #Functions to delete only one caracter in the Entry
     def delEnt(self):
+        if self.YesPr == True:
+            try:
+                self.EntryOps.configure(state='normal')
+                self.EntryOps.delete(self.EntryOps.index("end") - 1)
+                self.EntryOps.configure(state='readonly')
+                self.operation.pop()
+
+            except IndexError:
+                print("kuru kuru kururin")    
+        
+
+    #Functions to delete all the caracters in the Entry
+    def delAEnt(self):
         self.EntryOps.configure(state='normal')
-        #self.EntryOps.delete(self.EntryOps.index("end") - 1)
         self.EntryOps.delete(0, END)
         self.EntryOps.configure(state='readonly')
         self.operation = []
-        self.YesPr = True
-        self.ifOps = False
+        self.YesPr = False
+        self.NoPr = True
 
 
     # Print the result into the Entry and the TreeView
@@ -190,6 +213,7 @@ class Product:
                 self.tree.insert('', 0, text = self.operation, values = ["Error: Division por cero"])
                 self.operation = []
                 self.YesPr = False
+                self.NoPr = False
                 self.EntryOps.configure(state='readonly')
 
             except SyntaxError:
@@ -200,6 +224,7 @@ class Product:
                 self.tree.insert('', 0, text = self.operation, values = ["Error: Operacion invalida"])
                 self.operation = []
                 self.YesPr = False
+                self.NoPr = False
                 self.EntryOps.configure(state='readonly')
 
 
