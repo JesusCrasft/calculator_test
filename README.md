@@ -16,7 +16,7 @@ Los unicos requisitos son tener instalado Python3 y la libreria Tkinter.
 
 *Descargar el archivo, descomprimirlo y situarse en la carpeta*
 
-Ejecutar el archivo index.py con Python3
+Ejecutar el archivo index.py con Python3 en una terminal.
 
 ## Tasks / Lista de Tareas
 - [x] Inicializar repositorio
@@ -26,7 +26,7 @@ Ejecutar el archivo index.py con Python3
 - [x] Hacer el readme
 
 ## Contribute / Para contribuir
-1. Has un [Fork](https://github.com/JesusCrasft/Snake-Python/fork)
+1. Has un [Fork](https://github.com/JesusCrasft/calculator_tes/fork)
 2. Crea tu propia rama (git checkout -b feature/fooBar)
 3. Sube tus cambios (git commit -am 'Add some fooBar')
 4. Actualiza tu rama (git push origin feature/fooBar)
